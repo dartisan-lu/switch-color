@@ -30,8 +30,13 @@ class _ProgressState extends State<Progress> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator(
-      value: controller.value,
+    return SizedBox(
+      width: 20,
+      height: 20,
+      child: CircularProgressIndicator(
+        strokeWidth: 2,
+        value: controller.value,
+      ),
     );
   }
 }

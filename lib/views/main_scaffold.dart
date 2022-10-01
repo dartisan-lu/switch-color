@@ -16,7 +16,7 @@ class MainScaffold extends StatelessWidget {
           padding: const EdgeInsetsDirectional.all(10),
           child: Column(children: [
             screenHeight / screenWidth < 1.22
-                ? const Expanded(child: FractionallySizedBox(widthFactor: 0.4, child: Playground()))
+                ? const Expanded(child: FractionallySizedBox(widthFactor: 0.37, child: Playground()))
                 : const Expanded(child: Playground()),
             const SettingsBar(),
           ])),
