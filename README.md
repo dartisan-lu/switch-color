@@ -34,13 +34,15 @@ There a 3 classes in: /lib/game/ai
 * color_switch_ai_common.dart: A common abstract class containing the methods for validating the current table if the
   same color and switching the colors of the table to the next color.
 * color_switch_ai_basic.dart: A simple linear implementation, choosing a color based on LEFT -> RIGHT, TOP -> DOWN. This
-  mainly for having a reference on counting the steps.
-* color_switch_ai_deep.dart: The AI put to challenge, containing the maon algorithm.
+  mainly for having a reference on counting the steps (not optimized).
+* color_switch_ai_deep.dart: The AI put to challenge, containing the main algorithm.
 
-The shell executable to read and write the CSV files and executing the AI under /bin
+The shell executable to read and write the CSV files and executing the AI under /bin.
 
-A Flutter UI implementation for showcase how the Algo will operate can be found under /view running on Android, IOS,
-Desktop (Tested Android + Web)
+A Flutter UI implementation for showcase how the Algo will operate can be found under /view running on Android, IOS, WEB
+and Desktop (Tested Android + Web).
+
+WEB: https://dartisan-lu-switchcolor.github.io/#/
 
 ## Code
 
@@ -228,8 +230,8 @@ ENTRYPOINT ["bin/color-it.sh", "/demofiles/sample.csv", "/demofiles/sample-resul
 and need to referred on execution as absolute path:
 
 ````
-docker build -t colot-it-dart .
-docker run -v [[absolute path]]/demofiles:/demofiles colot-it-dart
+docker build -t color-it-dart .
+docker run -v [[absolute path]]/demofiles:/demofiles color-it-dart
 ````
 
 Result file in /demofiles/sample-result.csv:
