@@ -4,3 +4,4 @@ web/** linguist-vendored
 linux/** linguist-vendored
 macos/** linguist-vendored
 windows/** linguist-vendored
+docs/** linguist-vendored

@@ -1,15 +1,15 @@
 # Switch Color
 
 Challenge is based on the Algo Battle (Color-It)
-https://www.youtube.com/watch?v=-L8J7NQvqhU from SFEIR.
+https://www.youtube.com/watch?v=-L8J7NQvqhU of SFEIR.
 
 ## Strategy
 
-As the information based for the challenge had been limited on behavior, size and time limit, I choose a classic DFS (
-Deep First Search) as base. This guarantees already a result in 2 Minutes or earlier as in the first walk it finds a
+Based on the information for the challenge that it is time limited, I choose a classic DFS (
+Deep First Search) for base implementation. This guarantees a result in 2 Minutes or earlier because in the first walk of the tree branches it finds a
 result, even when not the best.
 
-Couple of actions done to optimize the following executions.
+To optimize the following executions, I took the following optimisations
 
 * Shortest Path: each time, we arrive in coloring all in the same color, we keep the number of steps, and limit the
   following branches to not pass this limit.
@@ -42,7 +42,7 @@ The shell executable to read and write the CSV files and executing the AI under 
 A Flutter UI implementation for showcase how the Algo will operate can be found under /view running on Android, IOS, WEB
 and Desktop (Tested Android + Web).
 
-WEB: https://dartisan-lu-switchcolor.github.io/#/
+WEB: https://dartisan-lu.github.io/switch-color/#/
 
 ## Code
 
