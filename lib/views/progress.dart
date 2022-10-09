@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Progress extends StatefulWidget {
   const Progress({super.key});
@@ -30,8 +31,19 @@ class _ProgressState extends State<Progress> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator(
-      value: controller.value,
+    return kIsWeb ?
+    const Icon(
+      color: Colors.blue,
+      Icons.access_time_filled_outlined,
+      size: 24.0,
+    )
+    : SizedBox(
+      width: 20,
+      height: 20,
+      child: CircularProgressIndicator(
+        strokeWidth: 2,
+        value: controller.value,
+      ),
     );
   }
 }

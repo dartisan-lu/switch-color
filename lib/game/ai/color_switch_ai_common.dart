@@ -3,6 +3,9 @@ import 'dart:collection';
 import 'package:switchcolor/game/point.dart';
 
 abstract class ColorSwitchAiCommon {
+  List<int> solve();
+
+  // Change point (0,0) and all points from same color on border to new switch color
   List<List<int>> applySwitchToColor(List<List<int>> board, int switchToColor) {
     var switchedColorBoard = <List<int>>[];
     for (var l in board) {
@@ -17,22 +20,25 @@ abstract class ColorSwitchAiCommon {
       var point = toChange.removeFirst();
       if (switchedColorBoard[point.y][point.x] == oldColor) {
         switchedColorBoard[point.y][point.x] = switchToColor;
-        if (point.x > 0 && switchedColorBoard[point.y][point.x - 1] == oldColor)
+        if (point.x > 0 && switchedColorBoard[point.y][point.x - 1] == oldColor) {
           toChange.add(Point(point.x - 1, point.y));
-        if (point.y > 0 && switchedColorBoard[point.y - 1][point.x] == oldColor)
+        }
+        if (point.y > 0 && switchedColorBoard[point.y - 1][point.x] == oldColor) {
           toChange.add(Point(point.x, point.y - 1));
-        if (point.x < switchedColorBoard.length - 1 && switchedColorBoard[point.y][point.x + 1] == oldColor)
+        }
+        if (point.x < switchedColorBoard.length - 1 && switchedColorBoard[point.y][point.x + 1] == oldColor) {
           toChange.add(Point(point.x + 1, point.y));
-        if (point.y < switchedColorBoard.length - 1 && switchedColorBoard[point.y + 1][point.x] == oldColor)
+        }
+        if (point.y < switchedColorBoard.length - 1 && switchedColorBoard[point.y + 1][point.x] == oldColor) {
           toChange.add(Point(point.x, point.y + 1));
+        }
       }
     }
 
     return switchedColorBoard;
   }
 
-  List<int> solve();
-
+  // Check if all points have the same color than point(0,0)
   bool notAllSameColor(List<List<int>> board) {
     var startColor = board[0][0];
     for (var row in board) {
@@ -40,7 +46,6 @@ abstract class ColorSwitchAiCommon {
         if (startColor != colColor) return true;
       }
     }
-
     return false;
   }
 }

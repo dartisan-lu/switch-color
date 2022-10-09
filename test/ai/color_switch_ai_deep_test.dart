@@ -4,8 +4,8 @@ import 'package:switchcolor/game/ai/color_switch_ai_deep.dart';
 
 void main() {
   // Parameters
-  var dimension = 15;
-  var nbrColors = 15;
+  var dimension = 5;
+  var nbrColors = 5;
 
   // Generate Random Board
   var rng = Random();

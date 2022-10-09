@@ -1,5 +1,7 @@
+import 'dart:isolate';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:switchcolor/game/ai/color_switch_ai_common.dart';
 import 'package:switchcolor/game/ai/color_switch_ai_deep.dart';
@@ -15,7 +17,7 @@ class SwitchColorState extends ChangeNotifier {
   var board = <List<int>>[];
   var bkp = <List<int>>[];
   var run = false;
-  var algo = 'DFS';
+  var algo = 'LINEAR';
   int countMoves = 0;
 
   SwitchColorState() {
@@ -82,7 +84,9 @@ class SwitchColorState extends ChangeNotifier {
     }
 
     var ai = algo == 'DFS' ? ColorSwitchAiDeep(copy) : ColorSwitchAiBasic(copy);
+    await Future.delayed(const Duration(milliseconds: 500));
     var moves = await waitMoves(ai);
+
     run = moves.isNotEmpty;
     notifyListeners();
     for (var i = 0; i < moves.length; i++) {
@@ -95,7 +99,29 @@ class SwitchColorState extends ChangeNotifier {
   }
 
   Future<List<int>> waitMoves(ColorSwitchAiCommon ai) async {
-    return Future<List<int>>.delayed(const Duration(milliseconds: 5), () => ai.solve());
+    if (kIsWeb) {
+      return Future.value(ai.solve());
+    } else {
+      return waitMovesIsolate(ai);
+    }
+  }
+
+  Future<List<int>> waitMovesIsolate(ColorSwitchAiCommon ai) async {
+    ReceivePort port = ReceivePort();
+
+    // Prepare
+    calculateMoves(List<dynamic> values) {
+      SendPort sendPort = values[0];
+      ColorSwitchAiCommon ai = values[1];
+      var result = ai.solve();
+      sendPort.send(result);
+    }
+
+    // Execute
+    final isolate = await Isolate.spawn<List<dynamic>>(calculateMoves, [port.sendPort, ai]);
+    final result = await port.first;
+    isolate.kill(priority: Isolate.immediate);
+    return result;
   }
 
   void setAlgo(String? v) {
