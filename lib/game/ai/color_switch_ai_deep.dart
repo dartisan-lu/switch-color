@@ -54,6 +54,11 @@ class ColorSwitchAiDeep extends ColorSwitchAiCommon {
     // Jackpot, we finalized a way, check if it is the shortest
     if (!notAllSameColor(board)) {
       if (steps.length < shortestRoadCount) {
+        if(shortestRoadCount >= 9999999999999) {
+          print('[${DateTime.now()}] First result: [${steps.length}]');
+        } else {
+          print('[${DateTime.now()}] Next result: [${steps.length}]');
+        }
         shortestRoadCount = steps.length;
         shortestRoad = List.of(steps);
       }
